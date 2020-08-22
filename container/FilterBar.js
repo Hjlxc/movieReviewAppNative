@@ -1,24 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  ScrollView,
-  Text,
-  StyleSheet,
-  View,
-  Switch,
-  Dimensions,
-} from 'react-native';
-import {Button} from 'react-native-elements';
-import Popover from 'react-native-popover-view';
+import {ScrollView, Text, StyleSheet, View, Switch} from 'react-native';
 
-import Icon from 'react-native-vector-icons/AntDesign';
+import FilterPopover from './FilterPopover';
+import {CheckBoxGroup} from '../component';
 
 import {modules} from 'movie-review-app';
 import styles from '../styles';
 
-const {sortOptions} = modules.movieFilter.metadata;
-const {selectMovieAdult} = modules.movieFilter.selectors;
-const {setMovieFilterAdult} = modules.movieFilter.actions;
+const {
+  selectMovieAdult,
+  selectLanguageOption,
+  selectMovieLanguage,
+} = modules.movieFilter.selectors;
+const {
+  setMovieFilterAdult,
+  setMovieFilterLanguage,
+} = modules.movieFilter.actions;
 
 const AdultFilter = () => {
   const dispatch = useDispatch();
@@ -41,26 +39,21 @@ const AdultFilter = () => {
 };
 
 const LanguageFilter = () => {
+  const dispatch = useDispatch();
+  const options = useSelector(selectLanguageOption);
+  const checked = useSelector(selectMovieLanguage);
+  const onOptionPress = (option) => dispatch(setMovieFilterLanguage(option));
+  const checkedNumber = Object.keys(checked).length;
   return (
-    <Popover
-      mode="rn-modal"
-      placement="bottom"
-      arrowStyle={{backgroundColor: 'transparent'}}
-      popoverStyle={{width: Dimensions.get('window').width}}
-      verticalOffset={-1}
-      from={(sourceRef, showPopover) => (
-        <Button
-          onPress={showPopover}
-          ref={sourceRef}
-          type="outline"
-          title="Language"
-          iconRight
-          icon={<Icon name="down" size={15} />}
-          titleStyle={filterBarStyle.titleStyle}
-        />
-      )}>
-      <Text>Test Popover</Text>
-    </Popover>
+    <FilterPopover
+      title={`Language${checkedNumber ? ` (${checkedNumber})` : ''}`}
+      virticalOffset={-1}>
+      <CheckBoxGroup
+        options={options}
+        checked={checked}
+        onOptionPress={onOptionPress}
+      />
+    </FilterPopover>
   );
 };
 
@@ -74,19 +67,8 @@ const FilterBar = () => {
 };
 
 const filterBarStyle = StyleSheet.create({
-  //   containerStyle: {
-  //     position: 'relative',
-  //   },
   containerStyle: {
-    display: 'flex',
     padding: 5,
-  },
-  iconContainerStyle: {
-    position: 'relative',
-    top: 10,
-  },
-  titleStyle: {
-    padding: 10,
   },
 });
 export default FilterBar;
