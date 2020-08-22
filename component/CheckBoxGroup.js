@@ -3,8 +3,8 @@ import {View} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 
 const CheckBoxGroup = ({
-  options,
-  checked,
+  options = [],
+  checked = {},
   onOptionPress,
   containerStyle,
   checkBoxContainerStyle,
