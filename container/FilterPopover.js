@@ -10,14 +10,14 @@ const filterBarStyle = StyleSheet.create({
   },
 });
 
-const FilterPopover = ({title, virticalOffset, children}) => {
+const FilterPopover = ({title, virticalOffset, children, popoverStyle}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Popover
       mode="rn-modal"
       placement="bottom"
       arrowStyle={{backgroundColor: 'transparent'}}
-      popoverStyle={{width: Dimensions.get('window').width}}
+      popoverStyle={popoverStyle}
       verticalOffset={virticalOffset}
       onOpenComplete={() => setIsOpen(true)}
       onCloseStart={() => setIsOpen(false)}
@@ -33,6 +33,7 @@ const FilterPopover = ({title, virticalOffset, children}) => {
           iconRight
           icon={<Icon name={isOpen ? 'up' : 'down'} size={15} />}
           titleStyle={filterBarStyle.titleStyle}
+          containerStyle={{paddingRight: 15}}
         />
       )}>
       {children}

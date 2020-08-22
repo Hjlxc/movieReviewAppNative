@@ -1,6 +1,14 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {ScrollView, Text, StyleSheet, View, Switch} from 'react-native';
+import {
+  ScrollView,
+  Text,
+  StyleSheet,
+  View,
+  Switch,
+  Dimensions,
+} from 'react-native';
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
 import FilterPopover from './FilterPopover';
 import {CheckBoxGroup} from '../component';
@@ -12,10 +20,12 @@ const {
   selectMovieAdult,
   selectLanguageOption,
   selectMovieLanguage,
+  selectMovieVoting,
 } = modules.movieFilter.selectors;
 const {
   setMovieFilterAdult,
   setMovieFilterLanguage,
+  setMovieFilterVoting,
 } = modules.movieFilter.actions;
 
 const AdultFilter = () => {
@@ -46,6 +56,7 @@ const LanguageFilter = () => {
   const checkedNumber = Object.keys(checked).length;
   return (
     <FilterPopover
+      popoverStyle={{width: Dimensions.get('window').width}}
       title={`Language${checkedNumber ? ` (${checkedNumber})` : ''}`}
       virticalOffset={-1}>
       <CheckBoxGroup
@@ -57,11 +68,41 @@ const LanguageFilter = () => {
   );
 };
 
+const VotingFilter = () => {
+  const dispatch = useDispatch();
+  const voting = useSelector(selectMovieVoting);
+  const onVotingFilterChange = ([min, max]) =>
+    dispatch(setMovieFilterVoting({min, max}));
+  return (
+    <FilterPopover
+      title={`Voting (${voting.selectMin.toFixed(
+        1,
+      )} - ${voting.selectMax.toFixed(1)})`}
+      virticalOffset={-1}
+      popoverStyle={{
+        ...styles.centered,
+        width: Dimensions.get('window').width,
+      }}>
+      <MultiSlider
+        min={voting.min}
+        max={voting.max}
+        values={[voting.selectMin, voting.selectMax]}
+        onValuesChangeFinish={onVotingFilterChange}
+        step={0.1}
+        allowOverlap={false}
+        minMarkerOverlapDistance={10}
+        sliderLength={Dimensions.get('window').width * 0.8}
+      />
+    </FilterPopover>
+  );
+};
+
 const FilterBar = () => {
   return (
     <ScrollView horizontal={true} style={filterBarStyle.containerStyle}>
       <AdultFilter />
       <LanguageFilter />
+      <VotingFilter />
     </ScrollView>
   );
 };

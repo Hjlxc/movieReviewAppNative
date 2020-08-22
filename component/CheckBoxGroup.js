@@ -12,8 +12,9 @@ const CheckBoxGroup = ({options, checked, onOptionPress}) => {
         justifyContent: 'flex-start',
         flexWrap: 'wrap',
       }}>
-      {options.map((option, idx) => (
+      {options.map((option) => (
         <CheckBox
+          key={option}
           title={option}
           checked={checked[option]}
           containerStyle={{width: 80}}

@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "movie-review-app": "/home/chen/Personal/movie-review-app",
     "react": "16.13.1",
     "react-native": "0.63.2",
