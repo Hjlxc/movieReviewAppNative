@@ -28,6 +28,7 @@ const {
   setMovieFilterLanguage,
   setMovieFilterVoting,
   setMovieSort,
+  resetMovieFilterState,
 } = modules.movieFilter.actions;
 const {sortOptions} = modules.movieFilter.metadata;
 
@@ -61,7 +62,9 @@ const LanguageFilter = () => {
     <FilterPopover
       popoverStyle={{width: Dimensions.get('window').width}}
       title={`Language${checkedNumber ? ` (${checkedNumber})` : ''}`}
-      virticalOffset={-1}>
+      virticalOffset={-1}
+      resetVisible={!!checkedNumber}
+      onPressReset={() => dispatch(resetMovieFilterState('language'))}>
       <CheckBoxGroup
         containerStyle={{
           ...styles.horizontalCentered,
@@ -82,12 +85,20 @@ const VotingFilter = () => {
   const voting = useSelector(selectMovieVoting);
   const onVotingFilterChange = ([min, max]) =>
     dispatch(setMovieFilterVoting({min, max}));
+  const resetVisible = !(
+    voting.min === voting.selectMin && voting.max === voting.selectMax
+  );
+
   return (
     <FilterPopover
-      title={`Voting (${voting.selectMin.toFixed(
-        1,
-      )} - ${voting.selectMax.toFixed(1)})`}
+      title={`Voting${
+        resetVisible
+          ? ` (${voting.selectMin.toFixed(1)} - ${voting.selectMax.toFixed(1)})`
+          : ''
+      }`}
       virticalOffset={-1}
+      resetVisible={resetVisible}
+      onPressReset={() => dispatch(resetMovieFilterState('voting'))}
       popoverStyle={{
         ...styles.centered,
         width: Dimensions.get('window').width,
@@ -111,11 +122,11 @@ const SortSelector = () => {
   const sort = useSelector(selectMovieSort);
   const checked = sort ? {[sort]: true} : {Default: true};
   const onOptionPress = (option) => dispatch(setMovieSort(option));
-
+  const resetVisible = sort && sort !== 'Default';
   return (
     <FilterPopover
       popoverStyle={{width: Dimensions.get('window').width}}
-      title={`Sort by:${sort !== 'Default' ? ` (${sort})` : ''}`}
+      title={`Sort by${resetVisible ? ` (${sort})` : ''}`}
       virticalOffset={-1}>
       <CheckBoxGroup
         options={sortOptions}

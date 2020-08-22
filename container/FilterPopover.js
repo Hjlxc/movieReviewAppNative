@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import {Dimensions, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Button} from 'react-native-elements';
 import Popover from 'react-native-popover-view';
 import Icon from 'react-native-vector-icons/AntDesign';
+
+import styles from '../styles';
 
 const filterBarStyle = StyleSheet.create({
   titleStyle: {
@@ -10,23 +12,26 @@ const filterBarStyle = StyleSheet.create({
   },
 });
 
-const FilterPopover = ({title, virticalOffset, children, popoverStyle}) => {
+const FilterPopover = ({
+  title,
+  virticalOffset,
+  children,
+  popoverStyle,
+  onPressReset,
+  resetVisible,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Popover
+      isVisible={isOpen}
       mode="rn-modal"
       placement="bottom"
       arrowStyle={{backgroundColor: 'transparent'}}
-      popoverStyle={popoverStyle}
+      popoverStyle={{paddingTop: 15, ...popoverStyle}}
       verticalOffset={virticalOffset}
-      onOpenComplete={() => setIsOpen(true)}
-      onCloseStart={() => setIsOpen(false)}
-      from={(sourceRef, showPopover) => (
+      from={(sourceRef) => (
         <Button
-          onPress={() => {
-            showPopover();
-            setIsOpen(true);
-          }}
+          onPress={() => setIsOpen(true)}
           ref={sourceRef}
           type="outline"
           title={title}
@@ -37,6 +42,24 @@ const FilterPopover = ({title, virticalOffset, children, popoverStyle}) => {
         />
       )}>
       {children}
+      <View style={styles.divider}></View>
+      <View
+        style={{
+          ...styles.virticalContainer,
+          flexDirection: 'row',
+          justifyContent: resetVisible ? 'space-between' : 'flex-end',
+          width: '100%',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+        }}>
+        {resetVisible && (
+          <Button title="Reset" type="clear" onPress={onPressReset}></Button>
+        )}
+        <Button
+          title="Done"
+          type="clear"
+          onPress={() => setIsOpen(false)}></Button>
+      </View>
     </Popover>
   );
 };
