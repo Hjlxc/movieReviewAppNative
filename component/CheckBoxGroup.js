@@ -2,22 +2,21 @@ import React from 'react';
 import {View} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 
-import styles from '../styles';
-
-const CheckBoxGroup = ({options, checked, onOptionPress}) => {
+const CheckBoxGroup = ({
+  options,
+  checked,
+  onOptionPress,
+  containerStyle,
+  checkBoxContainerStyle,
+}) => {
   return (
-    <View
-      style={{
-        ...styles.horizontalCentered,
-        justifyContent: 'flex-start',
-        flexWrap: 'wrap',
-      }}>
+    <View style={containerStyle}>
       {options.map((option) => (
         <CheckBox
           key={option}
           title={option}
           checked={checked[option]}
-          containerStyle={{width: 80}}
+          containerStyle={checkBoxContainerStyle}
           onPress={() => onOptionPress(option)}
         />
       ))}

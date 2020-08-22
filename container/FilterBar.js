@@ -21,12 +21,15 @@ const {
   selectLanguageOption,
   selectMovieLanguage,
   selectMovieVoting,
+  selectMovieSort,
 } = modules.movieFilter.selectors;
 const {
   setMovieFilterAdult,
   setMovieFilterLanguage,
   setMovieFilterVoting,
+  setMovieSort,
 } = modules.movieFilter.actions;
+const {sortOptions} = modules.movieFilter.metadata;
 
 const AdultFilter = () => {
   const dispatch = useDispatch();
@@ -60,6 +63,12 @@ const LanguageFilter = () => {
       title={`Language${checkedNumber ? ` (${checkedNumber})` : ''}`}
       virticalOffset={-1}>
       <CheckBoxGroup
+        containerStyle={{
+          ...styles.horizontalCentered,
+          justifyContent: 'flex-start',
+          flexWrap: 'wrap',
+        }}
+        checkBoxContainerStyle={{width: 80}}
         options={options}
         checked={checked}
         onOptionPress={onOptionPress}
@@ -97,12 +106,33 @@ const VotingFilter = () => {
   );
 };
 
+const SortSelector = () => {
+  const dispatch = useDispatch();
+  const sort = useSelector(selectMovieSort);
+  const checked = sort ? {[sort]: true} : {Default: true};
+  const onOptionPress = (option) => dispatch(setMovieSort(option));
+
+  return (
+    <FilterPopover
+      popoverStyle={{width: Dimensions.get('window').width}}
+      title={`Sort by:${sort !== 'Default' ? ` (${sort})` : ''}`}
+      virticalOffset={-1}>
+      <CheckBoxGroup
+        options={sortOptions}
+        checked={checked}
+        onOptionPress={onOptionPress}
+      />
+    </FilterPopover>
+  );
+};
+
 const FilterBar = () => {
   return (
     <ScrollView horizontal={true} style={filterBarStyle.containerStyle}>
       <AdultFilter />
       <LanguageFilter />
       <VotingFilter />
+      <SortSelector />
     </ScrollView>
   );
 };
