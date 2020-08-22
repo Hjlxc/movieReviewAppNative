@@ -9045,8 +9045,9 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-"movie-review-app@file:../movie-review-app":
+"movie-review-app@https://github.com/Hjlxc/movie-review-app#master":
   version "0.1.0"
+  resolved "https://github.com/Hjlxc/movie-review-app#b29e1c281db4bd536a322d9474fe97effaafdbf6"
   dependencies:
     "@reduxjs/toolkit" "^1.1.0"
     "@testing-library/jest-dom" "^4.2.4"
@@ -11974,11 +11975,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
-
-rn-range-slider@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/rn-range-slider/-/rn-range-slider-1.3.2.tgz#7c8618fc5ba302b20135908e5ab97c549eb759ab"
-  integrity sha512-1H8OmCgXDOhdDmOD4QylGd6iRk4Zqh6n0vB3Zcng8MHKm06JQIP+4fC4VdvDtYGCXPDzZvc/k1jbp2/64pznfw==
 
 rsvp@^4.8.4:
   version "4.8.5"

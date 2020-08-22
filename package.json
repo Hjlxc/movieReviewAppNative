@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
-    "movie-review-app": "/home/chen/Personal/movie-review-app",
+    "movie-review-app": "https://github.com/Hjlxc/movie-review-app#master",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-config": "^1.3.3",
