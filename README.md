@@ -29,7 +29,7 @@ The project has 3 main sections that allow for easy extension:
 
 ### modules
 
-The modules contains the redux module, any redux state and logic should add to here. It is entirely imported from the repo for the browser-base app [here](https://github.com/Hjlxc/movie-review-app)
+The modules contains the redux module, any redux state and logic should add to here. It is entirely imported from the repo for the [browser-base app](https://github.com/Hjlxc/movie-review-app).
 
 ### container
 
@@ -45,6 +45,12 @@ Clone the repo, then run the following command to install dependency
 
 ```sh
 $ yarn install
+```
+
+Then add a `.env` file and saving the movie database api key with the variable name `MOVIE_DB_API_KEY`. Please check [here](https://developers.themoviedb.org/3/getting-started/introduction) if you need one.
+
+```sh
+$ MOVIE_DB_API_KEY=your_api_key
 ```
 
 Then run both the following command
