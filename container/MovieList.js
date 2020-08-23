@@ -5,6 +5,8 @@ import {FlatList, StyleSheet, SafeAreaView} from 'react-native';
 import {MovieItem, MovieModal} from '../component';
 import {modules, utils} from 'movie-review-app';
 
+import Config from 'react-native-config';
+
 const {parseItemData} = utils;
 const {fetchMovieData} = modules.movieData.actions;
 const {
@@ -32,7 +34,7 @@ const MovieList = () => {
   const [modalItem, setModalItem] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchMovieData({apiKey: 'c06e14cd13b2c6373fdc8f9f3dd47eb3'}));
+    dispatch(fetchMovieData({apiKey: Config.MOVIE_DB_API_KEY}));
   }, []);
 
   const movieData = useSelector(selectFilteredMovie);
@@ -43,7 +45,7 @@ const MovieList = () => {
   const onEndReached = () =>
     dispatch(
       fetchMovieData({
-        apiKey: 'c06e14cd13b2c6373fdc8f9f3dd47eb3',
+        apiKey: Config.MOVIE_DB_API_KEY,
         page: fetchPage,
       }),
     );
