@@ -11,8 +11,9 @@ const CheckBoxGroup = ({
 }) => {
   return (
     <View style={containerStyle}>
-      {options.map((option) => (
+      {options.map((option, idx) => (
         <CheckBox
+          testID={`checkBox-${idx}`}
           key={option}
           title={option}
           checked={checked[option]}

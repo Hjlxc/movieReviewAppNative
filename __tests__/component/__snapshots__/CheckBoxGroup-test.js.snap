@@ -31,7 +31,7 @@ exports[`Test CheckboxGroup matches snapshot 1`] = `
         "padding": 10,
       }
     }
-    testID="checkbox"
+    testID="checkBox-0"
   >
     <View
       style={
@@ -144,7 +144,7 @@ exports[`Test CheckboxGroup matches snapshot 1`] = `
         "padding": 10,
       }
     }
-    testID="checkbox"
+    testID="checkBox-1"
   >
     <View
       style={
@@ -257,7 +257,7 @@ exports[`Test CheckboxGroup matches snapshot 1`] = `
         "padding": 10,
       }
     }
-    testID="checkbox"
+    testID="checkBox-2"
   >
     <View
       style={

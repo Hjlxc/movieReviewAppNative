@@ -1,5 +1,6 @@
 import 'react-native';
 import React from 'react';
+import {render, cleanup, fireEvent} from '@testing-library/react-native';
 import {CheckBox} from 'react-native-elements';
 
 // Note: test renderer must be required after react-native.
@@ -41,8 +42,30 @@ describe('Test CheckboxGroup', () => {
     checkBoxInstances.forEach((checkBoxInstance, idx) => {
       expect(checkBoxInstance.props.title).toBe(options[idx]);
       expect(checkBoxInstance.props.checked).toBe(checked[options[idx]]);
-      checkBoxInstance.props.onPress();
-      expect(mockOnChange).toHaveBeenCalledTimes(idx + 1);
+    });
+  });
+});
+
+describe('Test CheckBoxGroup children onlick interactive', () => {
+  let rendered;
+  const mockOnPress = jest.fn();
+  beforeEach(() => {
+    rendered = render(
+      <CheckBoxGroup
+        options={options}
+        checked={checked}
+        onOptionPress={mockOnPress}
+      />,
+    );
+  });
+  afterEach(cleanup);
+
+  it('Test user interactive when press on checkBox', () => {
+    options.forEach((option, idx) => {
+      const checkBox = rendered.getByTestId(`checkBox-${idx}`);
+      fireEvent(checkBox, 'onPress');
+      expect(mockOnPress).toBeCalledWith(option);
+      expect(mockOnPress).toHaveBeenCalledTimes(idx + 1);
     });
   });
 });
