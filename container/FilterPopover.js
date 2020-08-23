@@ -31,6 +31,7 @@ const FilterPopover = ({
       verticalOffset={virticalOffset}
       from={(sourceRef) => (
         <Button
+          testID="trigger-button"
           onPress={() => setIsOpen(true)}
           ref={sourceRef}
           type="outline"
@@ -53,11 +54,16 @@ const FilterPopover = ({
           paddingRight: '5%',
         }}>
         {resetVisible && (
-          <Button title="Reset" type="clear" onPress={onPressReset}></Button>
+          <Button
+            testID="reset-button"
+            title="Reset"
+            type="clear"
+            onPress={onPressReset}></Button>
         )}
         <Button
           title="Done"
           type="clear"
+          testID="done-button"
           onPress={() => setIsOpen(false)}></Button>
       </View>
     </Popover>
