@@ -1,18 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  FlatList,
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  SafeAreaView,
-} from 'react-native';
-import config from 'react-native-config';
-// import {MOVIE_DB_API_KEY} from '';
+import {FlatList, StyleSheet, SafeAreaView} from 'react-native';
+
 import {MovieItem, MovieModal} from '../component';
 import {modules, utils} from 'movie-review-app';
-console.log(config.MOVIE_DB_API_KEY);
+
 const {parseItemData} = utils;
 const {fetchMovieData} = modules.movieData.actions;
 const {
